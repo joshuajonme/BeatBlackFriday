@@ -2,3 +2,4 @@
 /env
 .vscode/
 products.json
+__pycache__

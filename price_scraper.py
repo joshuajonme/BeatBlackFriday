@@ -1,6 +1,6 @@
 import requests 
 import json
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from product import Product
@@ -44,9 +44,9 @@ while True:
         except:
             break
 
-    for i in driver.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[4]/div[1]'):
+    for i in driver.find_elements_by_xpath('//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]'):
         counter = 0
-        for element in i.find_elements_by_xpath('//div/div/div[2]/div[2]/div/div[2]/div[1]/div/div[1]/div/div/a'):
+        for element in i.find_elements_by_xpath('//div/span/div/div/div/div'):
             should_add = True
             name = ""
             price = ""
@@ -67,7 +67,9 @@ while True:
             product = Product(name, price, prev_price, link)
             if should_add:
                 products.append(product)
+                print(products)
             counter = counter + 1
+    
     page = page - 1
     if page == 0:
         break
