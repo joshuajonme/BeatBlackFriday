@@ -1,5 +1,8 @@
 *.pyc
-/env
 .vscode/
 products.json
 __pycache__
+
+## env
+/conda-env
+

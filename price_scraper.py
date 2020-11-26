@@ -55,6 +55,8 @@ while True:
             try:
                 name = i.find_elements_by_tag_name('h2')[counter].text
                 price = convert_price_toNumber(element.find_element_by_class_name('a-price').text)
+                if price and counter < 20:
+                    print(element.find_element_by_class_name('a-price').text)
                 link = i.find_elements_by_xpath('//h2/a')[counter].get_attribute("href")
                 try:
                     prev_price = convert_price_toNumber(element.find_element_by_class_name('a-text-price').text)
@@ -62,12 +64,12 @@ while True:
                     Exception()
                     prev_price = price
             except:
-                print("exception")
+                # print("exception")
                 should_add = False
             product = Product(name, price, prev_price, link)
             if should_add:
                 products.append(product)
-                print(products)
+                # print(products)
             counter = counter + 1
     
     page = page - 1
