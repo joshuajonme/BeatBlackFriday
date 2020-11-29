@@ -3,28 +3,27 @@ import json
 import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from product import Product
 from utils import convert_price_toNumber
-from web_driver_conf import get_web_driver_options
-from web_driver_conf import get_chrome_web_driver
-from web_driver_conf import set_ignore_certificate_error
-from web_driver_conf import set_browser_as_incognito
-from web_driver_conf import set_automation_as_head_less
+import os
 
 def scrape_amazon_search(search_term):
     URL = "http://www.amazon.com/"
     NUMBER_OF_PAGES_TO_SEARCH = 5
-    QUESTION_PRODUCT = "What are you looking for?\n:"
     PRODUCT_PATH = '//*[@id="search"]/div[1]/div[2]/div/span[3]/div[2]/div'
-    # search_term = str(input(QUESTION_PRODUCT))
 
     search_terms = search_term.split(" ")
 
-    options = get_web_driver_options()
-    set_automation_as_head_less(options)
-    set_ignore_certificate_error(options)
-    set_browser_as_incognito(options)
-    driver = get_chrome_web_driver(options)
+    # Set ChromeDriver options
+    options = webdriver.ChromeOptions()
+    options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+
+    options.add_argument('--incognito')
+    options.add_argument("--no-sandbox")
+    options.add_argument('--headless')
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=options)
 
     driver.get(URL)
 
@@ -92,8 +91,8 @@ def scrape_amazon_search(search_term):
 def best_deal(products):
     biggest_discount = 0.0
     lowest_price = 0.0
-    chepest_product = Product("", "", "", "", "", "")
-    best_deal_product = Product("", "", "", "", "", "")
+    chepest_product = {}
+    best_deal_product = {}
 
     run = 0
     for product in products:
