@@ -27,8 +27,6 @@ def scrape_amazon_search(search_term):
 
     driver.get(URL)
 
-    time.sleep(5)
-
     element = driver.find_element_by_xpath('//*[@id="twotabsearchtextbox"]')
     element.send_keys(search_term)
     element.send_keys(Keys.ENTER)
