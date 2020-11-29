@@ -82,6 +82,7 @@ def scrape_amazon_search(search_term):
         if page == 0:
             break
 
+        driver.quit()
     return products
 
         
