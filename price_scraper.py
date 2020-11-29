@@ -4,6 +4,7 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from utils import convert_price_toNumber
+import os
 
 def scrape_amazon_search(search_term):
     URL = "http://www.amazon.com/"
